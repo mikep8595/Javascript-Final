@@ -1,0 +1,96 @@
+// JavaScript Document
+
+
+// This is where variables are declared globaly
+var link1;
+var link2;
+var option;
+var link1check;
+var link2check;
+var terms;
+var clicked;
+var button;
+var ready;
+var choice;
+var agree;
+var notAgree;
+var radio;
+
+window.onload = function (){// When the page load, run this function
+	
+	radio = document.getElementById("mainform");
+	var objDiv = document.getElementById("agreeScroll");
+	agree = document.getElementById("agree");
+	notAgree = document.getElementById("notagree");
+	link1 = document.getElementById("agreeLink1");
+	link2 = document.getElementById("agreeLink2");
+	terms = document.getElementById("agreeScroll");
+	ready = document.getElementById("ready");
+	button = document.getElementById("submitAgreement");
+	// Making the variables equivalent to the needed page elements
+	
+	scrolled = false;
+	clicked = false;
+	link1check = false;
+	link2check = false;
+	//setting booleans
+	
+	//When the two links to the documents are clicked, these function will run and set the respective checks as true.(the console logs are for error checking)
+	link1.onclick = function()
+	{
+		//console.log ("true1");
+		link1check = true;
+	}
+	
+	link2.onclick = function()
+	{
+		//console.log ("true2");
+		link2check = true;
+	}
+	
+	//When the div containing the terms is scrolled in, this function will run.
+	objDiv.onscroll = function()
+	{
+		if ( objDiv.scrollTop == (objDiv.scrollHeight-objDiv.offsetHeight) ) //If the current top of the div is the scroll height minues the size of the div.
+		{
+			//console.log ("Yes");			
+			if (link1check == true && link2check == true) //if both documents were clicked...
+			{
+				//console.log("mhm");
+				notAgree.disabled = false;
+				agree.disabled = false;		
+				//... enable the radio buttons.
+			}
+		}
+	}
+	
+	radio.onchange = function () //if either of the radio buttons are checked.
+	{
+		if (agree.checked)
+		{
+			choice = true; // if agree that set choice to true
+			ready.innerHTML = "Click <strong> continue </strong> when ready." // Disply continue message
+		}
+		if (notAgree.checked)
+		{
+			choice = false; // If false then set to false
+			ready.innerHTML = "Agree must be selected to continue." //Display message that they need to hit agree to contine
+		}
+	}
+	
+	button.onclick = function ()
+	{
+		if (choice == true)
+		{
+			window.alert("Terms accepted.");	//Spit out acceptance message		
+		} 
+		else if (choice == false)
+		{
+			ready.innerHTML = "<Strong>Agree must be selected to continue.</Strong>" // make disagree message bold
+		}
+		else 
+		{
+			ready.innerHTML = "Please choose to either agree or disagree."	// if neither are selected, yet they still hit contine
+		} 
+	}
+};
